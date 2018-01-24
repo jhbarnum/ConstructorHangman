@@ -10,15 +10,7 @@ var checkWord = "";
 word = '';
 var guess = function(letterGuess){
 	this.letterGuess = letterGuess;
-// // 	// this.wrongGuess = wrongGuess;
-// // 	// this.rightGuess = rightGuess;
-// // 	// this.checkLetter = function () {
-// // 	// 	for(var i = 0; i < this.length; i++) {
-// // 	// 	if (this.guess = word[i]){
 
-// // 	// 		}
-// // 	// 	}
-// // 	// }
   };
 function startGame() {
     word = hangmanWordsArr[Math.floor(Math.random() * hangmanWordsArr.length)];
@@ -30,29 +22,22 @@ function wordInPlay() {
       encodedWord.push("_");
       //console.log(tuesday + '-------');
       if(tuesday == word[i]) {
-        console.log('yes');
+        console.log('yes')
+        encodedWord.splice(i, 1, word[i]);
+        }
         
         }
-      }
-      encodedWordStr();
+        encodedWordStr();
       console.log(checkWord)
-    }
+      }
+
+      
+      
+    
 function encodedWordStr() {
       checkWord = encodedWord.join('');
      }   
-// function wordInPlay(word) {
-// 	this.word = word;
-// }
 
-// function convertWord (word) {
-//               for (var q = 0; q < word.length; q++) {
-//                // word[i]
-//                var newStr = word.charAt(i);
-//                //console.log(newStr);
-//                encodedWord.push("_"); 
-//                console.log(encodedWord);
-//                }
-//                } 
   
 inquirer.prompt([
     {
@@ -65,6 +50,5 @@ inquirer.prompt([
     tuesday = letterGuessed.letterGuess;
     console.log(letterGuessed.letterGuess + "////////");
     wordInPlay();
-    //convertWord();
- });
+     });
 
