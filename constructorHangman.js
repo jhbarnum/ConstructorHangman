@@ -1,10 +1,8 @@
 var inquirer = require("inquirer");
-//var wordInPlay = require("./wordInPlay");
+var guessMe = require("./wordInPlay");
 //var guessedLetter = require("./letterGuess");
-var hangmanWordsArr = ['cheeseburger', 'computer', 'bicycle', 'riverfront', 'stereo', 'guitar', 'mountain', 'firestarter', 'ewok', 'minivan', 'argentina', 'snowboard', 'javascript', 'lightning', 'eggnog' ];
 var encodedWord = [];
 var word = [];
-var encodedWord = [];
 var tuesday = '';
 var checkWord = "";
 word = '';
@@ -13,18 +11,10 @@ var guess = function(letterGuess){
 
   };
 function startGame() {
-  //encodedWord = "";
-    word = hangmanWordsArr[Math.floor(Math.random() * hangmanWordsArr.length)];
-    console.log(word);
+  word = guessMe.wordArr[Math.floor(Math.random() * guessMe.wordArr.length)];
+  console.log(word);
     hideWord();
-    var a = 0;
-    if (a == 5) {
-      return;
-    } else {
-
     question();
-    a++;
-  }
 }
 function hideWord() {
   encodedWord = [];
@@ -40,27 +30,21 @@ function wordInPlay() {
       if(tuesday == word[i]) {
         console.log('yes')
         encodedWord.splice(i, 1, word[i]);
-        }
-        
-        }
-      
+        }      
+        }     
       encodedWordStr();
-      }
-      
-      
-      
-    
+      }      
 function encodedWordStr() {
       checkWord = encodedWord.join('');
       console.log("--------------------  " + checkWord + "  --------------------")
+      console.log("You Guessed " + tuesday + "--------------------");
      if (checkWord == word){
       console.log("YOU WIN! Play again? ( y or n )")
       if (tuesday == "y"){
         startGame();
-      }
-
-      return;
+      }      
     }
+    return;
      }   
 function question() {  
 inquirer.prompt([
@@ -77,9 +61,9 @@ inquirer.prompt([
     if (tuesday != 'x'){
       question();
     }
-    console.log("You Guessed " + letterGuessed.letterGuess + "--------------------");
-    console.log(tuesday);
     wordInPlay();
      });
+  
 };
 startGame();
+//module.exports = word;

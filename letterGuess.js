@@ -1,15 +1,12 @@
-// var guess = function(letterGuess){
-// 	this.letterGuess = letterGuess;
-// 	// this.wrongGuess = wrongGuess;
-// 	// this.rightGuess = rightGuess;
-// 	// this.checkLetter = function () {
-// 	// 	for(var i = 0; i < this.length; i++) {
-// 	// 	if (this.guess = word[i]){
+var wordRandom = require("./constructorHangman");
 
-// 	// 		}
-// 	// 	}
-// 	// }
-// 	console.log('letterGuess')
-// };
+var letters = function(letters){
+	//this.letterGuess = letterGuess;
+	
+	console.log('Conected' + wordRandom)
+};
 
-// module.exports = letterGuess;
+//var letterInWord = new letters(wordRandom);
+
+
+module.exports = letters;
