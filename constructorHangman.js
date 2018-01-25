@@ -13,13 +13,29 @@ var guess = function(letterGuess){
 
   };
 function startGame() {
+  //encodedWord = "";
     word = hangmanWordsArr[Math.floor(Math.random() * hangmanWordsArr.length)];
     console.log(word);
+    hideWord();
+    var a = 0;
+    if (a == 5) {
+      return;
+    } else {
+
+    question();
+    a++;
+  }
+}
+function hideWord() {
+  encodedWord = [];
+  for(var i = 0; i < word.length; i++) {
+
+      console.log(word[i]);
+      encodedWord.push("_");
+    }
 }
 function wordInPlay() {
      for(var i = 0; i < word.length; i++) {
-      console.log(word[i]);
-      encodedWord.push("_");
       //console.log(tuesday + '-------');
       if(tuesday == word[i]) {
         console.log('yes')
@@ -27,28 +43,43 @@ function wordInPlay() {
         }
         
         }
-        encodedWordStr();
-      console.log(checkWord)
+      
+      encodedWordStr();
       }
-
+      
       
       
     
 function encodedWordStr() {
       checkWord = encodedWord.join('');
-     }   
+      console.log("--------------------  " + checkWord + "  --------------------")
+     if (checkWord == word){
+      console.log("YOU WIN! Play again? ( y or n )")
+      if (tuesday == "y"){
+        startGame();
+      }
 
-  
+      return;
+    }
+     }   
+function question() {  
 inquirer.prompt([
     {
       name: "letterGuess",
       message: "Guess a letter..."
     }
+
   ]).then(function(answers) { 
-    startGame();
+
+    //startGame();
     var letterGuessed = new guess(answers.letterGuess);
     tuesday = letterGuessed.letterGuess;
-    console.log(letterGuessed.letterGuess + "////////");
+    if (tuesday != 'x'){
+      question();
+    }
+    console.log("You Guessed " + letterGuessed.letterGuess + "--------------------");
+    console.log(tuesday);
     wordInPlay();
      });
-
+};
+startGame();
