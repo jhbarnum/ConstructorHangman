@@ -1,6 +1,6 @@
 var inquirer = require("inquirer");
 var guessMe = require("./wordInPlay");
-//var guessedLetter = require("./letterGuess");
+var lettersGuessed = require("./letterGuess");
 var encodedWord = [];
 var word = [];
 var tuesday = '';
@@ -15,6 +15,7 @@ function startGame() {
   console.log(word);
     hideWord();
     question();
+    console.log(lettersGuessed);
 }
 function hideWord() {
   encodedWord = [];
@@ -66,4 +67,5 @@ inquirer.prompt([
   
 };
 startGame();
+// letters();
 //module.exports = word;
