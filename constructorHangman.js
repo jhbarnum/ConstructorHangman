@@ -1,81 +1,102 @@
 var inquirer = require("inquirer");
 var guessMe = require("./wordInPlay");
 var lettersGuessed = require("./letterGuess");
-var lettersLeft = lettersGuessed;
+
 var encodedWord = [];
-var word = [];
-var tuesday = '';
+var word = "";
 var checkWord = "";
-var playCount = 15;
-word = '';
-var guess = function(letterGuess){
-	this.letterGuess = letterGuess;
-  };
+var playCount = 0;
+
 function startGame() {
-  var lettersLeft = [];
-  word = guessMe.wordArr[Math.floor(Math.random() * guessMe.wordArr.length)];
-  playCount = 15;
-  console.log(word);
-  hideWord();
-  question();
-  return;
+    playCount = 15;
+    word = guessMe.wordArr[Math.floor(Math.random() * guessMe.wordArr.length)];
+
+    console.log(word);
+
+    hideWord();
+    question();
 }
+
 function hideWord() {
-  encodedWord = [];
-  for(var i = 0; i < word.length; i++) {
-    encodedWord.push("_");
-  }
-}
-function wordInPlay() {
-  for(var i = 0; i < word.length; i++) {
-    if(tuesday == word[i]) {
-      encodedWord.splice(i, 1, word[i]);
-    }      
-  }     
-  encodedWordStr();
   
-  }      
-function encodedWordStr() {
-  checkWord = encodedWord.join('');
-  console.log("--------------------  " + checkWord + "  --------------------")
-  console.log("You Guessed " + tuesday + "--------------------");
-  playCount--;
-  console.log("guess again " + playCount + " guesses left");
-  for (var t = 0; t < lettersGuessed.letters.length; t++) {
-    if(tuesday == lettersGuessed.letters[t]) {
-      lettersGuessed.letters.splice(t, 1, "*");
-    }      
+    encodedWord = [];
+
+    for (var i = 0; i < word.length; i++) {
+        encodedWord.push("_");
+    }
+}
+
+// this used to be word in play
+function updateCurrentMaskedWord(letterGuessed) {
+  
+    for (var i = 0; i < word.length; i++) {
+        if (letterGuessed == word[i]) {
+            encodedWord.splice(i, 1, word[i]);
+        }      
+    }
+
+    return updateApplicationState(letterGuessed);
+}  
+
+function updateApplicationState(letterGuessed) {
+    checkWord = encodedWord.join('');
     
-  }
-  console.log(JSON.stringify(lettersGuessed));
-  if (checkWord == word){
-    console.log("YOU WIN! Play again? ( y or n )")
-    if (tuesday == "y"){
-      startGame();
-      return;
+
+
+    console.log("Current word: " + checkWord);
+    console.log("You Guessed: " + letterGuessed);
+    
+    playCount--;
+    
+    console.log("Guesses left: " + playCount);
+    
+    
+    // for (var i = 0; i < lettersGuessed.letters.length; i++) {
+    //     if (letterGuessed == lettersGuessed.letters[i]) {
+    //         lettersGuessed.letters.splice(i, 1, "*"); 
+    //     }      
+    // }
+    
+
+    if (checkWord === word) {
+        return true;
     } else {
-      return;
+        return false;
     }
+}  
 
-  }
-  return;
-}   
-function question() {  
-inquirer.prompt([
-  {
-  name: "letterGuess",
-  message: "Guess a letter..."
-  }
-
-  ]).then(function(answers) { 
-    var letterGuessed = new guess(answers.letterGuess);
-    tuesday = letterGuessed.letterGuess;
-    if (tuesday != 'x'){
-      question();
-    }
-    wordInPlay();
-  }); 
+function startNewGame() {
+    
+    inquirer.prompt([
+        {
+            name: 'startNewGame',
+            message: "YOU WIN! Play again? ( y or n )"
+        }
+    ]).then(function(answer) {
+        if (answer.startNewGame == "y"){
+            startGame();
+        }
+    });
 };
+
+function question() {  
+    inquirer.prompt([
+        {
+            name: "letterGuess",
+            message: "Guess a letter..."
+        }
+    ]).then(function(answers) { 
+        
+        let guessedLetter = answers.letterGuess;
+        
+        
+        
+        if (updateCurrentMaskedWord(guessedLetter)) {
+            startNewGame();
+        } else {
+            question();
+        }
+    }); 
+};
+
 startGame();
-// letters();
-//module.exports = word;
