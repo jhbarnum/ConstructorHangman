@@ -5,14 +5,18 @@ underscored hidden word. All letters already guessed will be pushed to the scree
 same letter twice.
 
 
+
 ![StartGame](/images/begin.png)
 
+Start guessing letters.
 
 ![StartGuessing](/images/guessOne.png)
 
+As you guess, your guessed letters are stored and shown to you so you can avoid using them again.
 
 ![GuessTwo](/images/guessTwo.png)
 
+Win or lose, you will be offered a chance to play again.
 
 ![GuessThree](/images/guessThree.png)
 
