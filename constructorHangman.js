@@ -36,7 +36,6 @@ function updateCurrentMaskedWord(letterGuessed) {
     }
     guessedLetterArr.push(letterGuessed);
     return updateApplicationState(letterGuessed);
-
 }  
 
 // this consoles out your current state of play after each guess and checks to see if you have won
